@@ -1,0 +1,63 @@
+<?php
+/*
+Plugin Name: SciTech Strategies Survey
+Version: 0.1-alpha
+Description: Survey of top biomedical researchers
+Author: scitech
+Author URI: http://mapofscience.com/
+Plugin URI: http://mapofscience.com/
+Domain Path: /languages
+*/
+
+class STS_Survey {
+
+	private static $instance;
+
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new STS_Survey;
+			self::$instance->includes();
+			self::$instance->setup_actions();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Include dependencies.
+	 */
+	public function includes() {
+        require_once dirname( __FILE__ ) . '/controllers/class-sts-survey-controller.php';
+	}
+    
+    /**
+     * Set up actions.
+     */
+    public function setup_actions()
+    {
+        add_filter( 'swp_mvc_routes', array( $this, 'get_routes' ) );
+    }
+    
+    /**
+     * Get routes.
+     */
+    public function get_routes( $routes )
+    {
+        $routes[] = array(
+            'controller' => 'STS_Survey_Controller',
+            'method' => 'sign_in',
+            'route' => '/sts-survey/sign-in',
+        );
+        $routes[]= array(
+        	'controller' => 'STS_Survey_Controller',
+        	'method' => 'survey',
+        	'route' => '/sts-survey/survey/:p',
+    	);
+        return $routes;
+ 	}
+
+}
+
+function STS_Survey() {
+	return STS_Survey::get_instance();
+}
+add_action( 'swp_mvc_init', 'STS_Survey' );
