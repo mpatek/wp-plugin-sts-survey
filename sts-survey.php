@@ -16,16 +16,40 @@ class STS_Survey {
 	public static function get_instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new STS_Survey;
+            self::$instance->setup_constants();
 			self::$instance->includes();
 			self::$instance->setup_actions();
 		}
 		return self::$instance;
 	}
 
+    /**
+     * Do a redirect.
+     *
+     * Unit testable.
+     */
+    public function redirect($url) {
+        if ( defined( 'STS_SURVEY_PHPUNIT' ) ) {
+            echo "Doing Redirect: <$url>";
+        }
+        else {
+            header( 'Location: ' . $url );
+        }
+    }
+
+    /**
+     * Set up plugin-wide constants.
+     */
+    public function setup_constants()
+    {
+        $this->plugin_url = plugins_url('/', __FILE__);
+    }
+
 	/**
 	 * Include dependencies.
 	 */
 	public function includes() {
+        require_once dirname( __FILE__ ) . '/models/models.php';
         require_once dirname( __FILE__ ) . '/controllers/class-sts-survey-controller.php';
 	}
     
