@@ -3,14 +3,13 @@
  */
 jQuery(document).ready(function($) {
 
-	var lo_response = 0;
-	var hi_response = 100;
-
 	/**
 	 * Constrain responses to integer values between lo and hi.
 	 */
 	$('input.response').on('change', function(event) {
 		var value = $(this).val();
+		var lo_response = Number($(this).attr('min'));
+		var hi_response = Number($(this).attr('max'));
 		value = Math.floor(Number(value));
 		if (value < lo_response) {
 			value = lo_response;
@@ -50,6 +49,9 @@ jQuery(document).ready(function($) {
 		})
 	});
 
+	/**
+	 * Hide addl response inputs if no addl source.
+	 */
 	var $addl_source = $('textarea[name="addl-source"]');
 	var toggle_addl_responses = function() {
 		var v = $.trim($addl_source.val());

@@ -13,7 +13,6 @@ class STS_Survey_Controller extends swpMVCBaseController {
     /**
      * Display a researcher sign-in screen.
      *
-     * todo: complete this
      */
     public function sign_in()
     {
@@ -56,7 +55,6 @@ class STS_Survey_Controller extends swpMVCBaseController {
     /**
      * Display the survey form.
      *
-     * todo: complete this
      */
     public function survey( $researcher_code = null )
     {
