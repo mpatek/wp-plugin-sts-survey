@@ -127,5 +127,39 @@ class STS_Survey_Test_Case extends WP_UnitTestCase
     	// papers displayed?
     	$this->assertContains( 'CELL, v. 124', $output );
     	$this->assertContains( 'IMMUNOL, v. 175', $output );
+
+        STS_Survey_Response::delete_all( array( 'conditions' => '1=1' ) );
+        // try posting a response
+        $_POST = array(
+            'response-1-1' => 30,
+            'response-5-3' => 20,
+            );
+        $output = $this->get_controller_output( $controller, 'survey', array( $code ) );
+        $this->assertEquals( 'success', $output );
+
+        $researcher = STS_Survey_Researcher::find_by_login_hash( $code );
+        $response = STS_Survey_Response::find_by_researcher_id( $researcher->id );
+        $this->assertEquals( 30, $response->response[1][1] );
+        $this->assertEquals( 20, $response->response[5][3] );
+
+        // some invalid values?
+                STS_Survey_Response::delete_all( array( 'conditions' => '1=1' ) );
+        // try posting a response
+        $_POST = array(
+            'response-1-7' => -17,
+            'response-7-8' => 120,
+            'response-9-8' => 4,
+            'response-10-4' => 'foo',
+            );
+        $output = $this->get_controller_output( $controller, 'survey', array( $code ) );
+        $this->assertEquals( 'success', $output );
+
+        $researcher = STS_Survey_Researcher::find_by_login_hash( $code );
+        $response = STS_Survey_Response::find_by_researcher_id( $researcher->id );
+        $this->assertEquals( 0, $response->response[1][7] );
+        $this->assertEquals( 100, $response->response[7][8] );
+        $this->assertEquals( 4, $response->response[9][8] );
+        $this->assertEquals( 0, $response->response[10][4] );
+
     }
 }

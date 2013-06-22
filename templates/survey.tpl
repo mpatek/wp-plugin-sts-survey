@@ -66,7 +66,7 @@
 						<td><!-- ord --><!-- /ord --></td>
 						<td><!-- title --><!-- /title --></td>
 						<!-- response -->
-						<td class="response"><input type="number" value="0" min="0" max="100" name="<!-- input --><!-- /input -->" /></td>
+						<td class="response"><input class="response" type="number" value="<!-- value --><!-- /value -->" min="0" max="100" name="<!-- input --><!-- /input -->" /></td>
 						<!-- /response -->
 					</tr>
 					<!-- /source -->
@@ -76,5 +76,34 @@
 				<button class="btn btn-large btn-primary" type="submit">Submit</button>
 			</div>
 		</form>
+	</div>
+</div>
+<div class="modal hide fade" id="success-modal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Thank You</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			Thank you for taking our survey.
+			We have saved your responses.
+			You may revisit and update your responses whenever you like.
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+		<a href="<!-- home_url --><!-- /home_url -->" class="btn btn-success">Leave Survey</a>
+	</div>
+</div>
+<div class="modal hide fade" id="failure-modal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>An error has occurred</h3>
+	</div>
+	<div class="modal-body">
+		<p class="alert alert-danger">An error has occurred. Please contact us.</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
 	</div>
 </div>

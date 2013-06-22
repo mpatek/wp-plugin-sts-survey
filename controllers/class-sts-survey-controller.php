@@ -1,6 +1,9 @@
 <?php
 class STS_Survey_Controller extends swpMVCBaseController {
 
+    private $max_response = 100;
+    private $min_response = 0;
+
 	public function __construct()
     {
         parent::__construct();
@@ -63,6 +66,43 @@ class STS_Survey_Controller extends swpMVCBaseController {
                 return STS_Survey()->redirect( $sign_in_url );
             }
         }
+
+        $response = STS_Survey_Response::find_by_researcher_id(
+            $researcher->id
+            );
+        if ( ! $response ) {
+            $response = new STS_Survey_Response();
+        }
+
+        // check for response data
+        if ( ! empty( $_POST ) ) {
+            $response_arr = array();
+            foreach ( $_POST as $k => $v ) {
+
+                if ( preg_match ( '/^response-(\d+)-(\d+)$/', $k, $matches ) ) {
+                    $paper_id = $matches[1];
+                    $question_id = $matches[2];
+                    $v = min( $this->max_response, max ( $this->min_response, intval($v) ) );
+                    $response_arr[$paper_id][$question_id] = intval( $v );
+                }
+
+            }
+            if ( $response_arr ) {
+                $response->researcher_id = $researcher->id;
+                $response->response = $response_arr;
+                $result = $response->save();
+                if ( $result ) {
+                    echo 'success';
+                    return;
+                }
+                else {
+                    echo 'failure';
+                    return;
+                }
+            }
+
+        }
+
         $template = $this->template( 'survey' );
 
         $questions = STS_Survey_Question::all(
@@ -98,15 +138,25 @@ class STS_Survey_Controller extends swpMVCBaseController {
             $source_tpl->replace('title', $source->source);
             $responses_str = '';
             foreach ($questions as $question) {
-                $response = $source_tpl->copy('response');
+                $response_tpl = $source_tpl->copy('response');
                 $input = "response-$source->id-$question->id";
-                $response->replace('input', $input);
-                $responses_str .= $response;
+                $response_tpl->replace('input', $input);
+                if ( isset( $response->response[$source->id][$question->id] ) ) {
+                    $response_tpl->replace(
+                        'value',
+                        $response->response[$source->id][$question->id]
+                        );
+                }
+                else {
+                    $response_tpl->replace( 'value', 0 );
+                }
+                $responses_str .= $response_tpl;
             }
-            $source_tpl->replace('response', $responses_str);
+            $source_tpl->replace( 'response', $responses_str );
             $sources_str .= $source_tpl;
         }
-        $template->replace('source', $sources_str);
+        $template->replace( 'source', $sources_str );
+        $template->replace( 'home_url', home_url() );
         return $this->decorate_template( $template, 'Survey' );
     }
 
@@ -119,7 +169,7 @@ class STS_Survey_Controller extends swpMVCBaseController {
     {
         #mdpCG_set_page_title($title);
         $header = $this->template('header');
-        $header->replace('css_dir_uri', STS_Survey()->plugin_url);
+        $header->replace('plugin_dir_uri', STS_Survey()->plugin_url);
         echo $header;
         echo $template;
         echo $this->template('footer');
