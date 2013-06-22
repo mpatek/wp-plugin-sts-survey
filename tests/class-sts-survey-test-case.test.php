@@ -161,5 +161,22 @@ class STS_Survey_Test_Case extends WP_UnitTestCase
         $this->assertEquals( 4, $response->response[9][8] );
         $this->assertEquals( 0, $response->response[10][4] );
 
+        // additional source/responses should be saved.
+        $_POST = array(
+            'addl-source' => 'Some Source Info Here',
+            'addl-response-1' => 6,
+            'addl-response-2' => -7,
+            'addl-response-5' => 120,
+            );
+        $output = $this->get_controller_output( $controller, 'survey', array( $code ) );
+        $this->assertEquals( 'success', $output );
+
+        $researcher = STS_Survey_Researcher::find_by_login_hash( $code );
+        $response = STS_Survey_Response::find_by_researcher_id( $researcher->id );
+        $this->assertEquals( 'Some Source Info Here', $response->response['addl_source'] );
+        $this->assertEquals( 6, $response->response['addl_response'][1] );
+        $this->assertEquals( 0, $response->response['addl_response'][2] );
+        $this->assertEquals( 100, $response->response['addl_response'][5] );
+
     }
 }

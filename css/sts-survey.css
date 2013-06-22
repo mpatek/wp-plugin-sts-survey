@@ -40,6 +40,9 @@ body {
 	width: 90px;
 	text-align: center;
 }
+.survey table textarea {
+	width: 100%;
+}
 .survey table .example-score,
 .survey table .response, 
 .survey .submit {

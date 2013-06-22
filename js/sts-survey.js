@@ -49,4 +49,17 @@ jQuery(document).ready(function($) {
 			}
 		})
 	});
+
+	var $addl_source = $('textarea[name="addl-source"]');
+	var toggle_addl_responses = function() {
+		var v = $.trim($addl_source.val());
+		if (v == '') {
+			$('.addl-response').hide().val('0');
+		}
+		else {
+			$('.addl-response').show();
+		}
+	}
+	$addl_source.on('change', toggle_addl_responses);
+	toggle_addl_responses();
 });

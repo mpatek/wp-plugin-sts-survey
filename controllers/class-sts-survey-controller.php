@@ -45,6 +45,12 @@ class STS_Survey_Controller extends swpMVCBaseController {
         }
 
         return $this->decorate_template( $template, 'Researcher Sign In' );
+
+    }
+
+    private function sanitize_response_value($v)
+    {
+        return min( $this->max_response, max ( $this->min_response, intval($v) ) );
     }
 
     /**
@@ -82,10 +88,22 @@ class STS_Survey_Controller extends swpMVCBaseController {
                 if ( preg_match ( '/^response-(\d+)-(\d+)$/', $k, $matches ) ) {
                     $paper_id = $matches[1];
                     $question_id = $matches[2];
-                    $v = min( $this->max_response, max ( $this->min_response, intval($v) ) );
-                    $response_arr[$paper_id][$question_id] = intval( $v );
+                    $response_arr[$paper_id][$question_id] = $this->sanitize_response_value( $v );
+                }
+                elseif ( $k == 'addl-source' ) {
+                    $v = sanitize_text_field ( $v );
+                    if ( ! empty( $v ) ) {
+                        $response_arr['addl_source'] = $v;
+                    }
+                }
+                elseif ( preg_match ( '/^addl-response-(\d+)$/', $k, $matches ) ) {
+                    $question_id = $matches[1];
+                    $response_arr['addl_response'][$question_id] = $this->sanitize_response_value( $v );
                 }
 
+            }
+            if ( ! isset( $response_arr['addl_source'] ) ) {
+                unset( $response_arr['addl_response'] );
             }
             if ( $response_arr ) {
                 $response->researcher_id = $researcher->id;
@@ -132,6 +150,7 @@ class STS_Survey_Controller extends swpMVCBaseController {
             $researcher->id, array('order' => 'ord ASC')
             );
         $sources_str = '';
+        $ord_plus_1 = null;
         foreach ($sources as $source) {
             $source_tpl = $template->copy('source');
             $source_tpl->replace('ord', $source->ord);
@@ -150,11 +169,44 @@ class STS_Survey_Controller extends swpMVCBaseController {
                 else {
                     $response_tpl->replace( 'value', 0 );
                 }
+                $response_tpl->replace( 'lo_response', $this->min_response );
+                $response_tpl->replace( 'hi_response', $this->max_response );
                 $responses_str .= $response_tpl;
             }
             $source_tpl->replace( 'response', $responses_str );
             $sources_str .= $source_tpl;
+            if ( ! $ord_plus_1 || $ord_plus_1 < $source->ord ) {
+                $ord_plus_1 = $source->ord;
+            }
         }
+        $ord_plus_1++;
+        $template->replace( 'ord_plus_1', $ord_plus_1 );
+        if ( isset( $response->response['addl_source'] ) ) {
+            $template->replace(
+                'addl_source',
+                $response->response['addl_source']
+                );
+        }
+        else {
+            $template->replace( 'addl_source', '' );
+        }
+        $addl_response_str = '';
+        foreach ( $questions as $question ) {
+            $addl_response_tpl = $template->copy( 'addl_response' );
+            if ( isset( $response->response["addl_response"][$question->id] ) ) {
+                $addl_response_tpl->replace(
+                    'value', $response->response["addl_response"][$question->id]
+                    );
+            }
+            else {
+                $addl_response_tpl->replace( 'value', 0 );
+            }
+            $addl_response_tpl->replace( 'lo_response', $this->min_response );
+            $addl_response_tpl->replace( 'hi_response', $this->max_response );
+            $addl_response_tpl->replace( 'input', "addl-response-$question->id" );
+            $addl_response_str .= $addl_response_tpl;
+        }
+        $template->replace( 'addl_response', $addl_response_str );
         $template->replace( 'source', $sources_str );
         $template->replace( 'home_url', home_url() );
         return $this->decorate_template( $template, 'Survey' );

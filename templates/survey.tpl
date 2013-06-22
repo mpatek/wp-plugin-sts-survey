@@ -66,10 +66,21 @@
 						<td><!-- ord --><!-- /ord --></td>
 						<td><!-- title --><!-- /title --></td>
 						<!-- response -->
-						<td class="response"><input class="response" type="number" value="<!-- value --><!-- /value -->" min="0" max="100" name="<!-- input --><!-- /input -->" /></td>
+						<td class="response"><input class="response" type="number" value="<!-- value --><!-- /value -->" min="<!-- lo_response --><!-- /lo_response -->" max="<!-- hi_response --><!-- /hi_response -->" name="<!-- input --><!-- /input -->" /></td>
 						<!-- /response -->
 					</tr>
 					<!-- /source -->
+					<tr>
+						<td><!-- ord_plus_1 --><!-- /ord_plus_1 --></td>
+						<td>
+							<textarea name="addl-source"><!-- addl_source --><!-- /addl_source --></textarea>
+						</td>
+						<!-- addl_response -->
+						<td class="response">
+							<input class="response addl-response" type="number" value="<!-- value --><!-- /value -->" min="<!-- lo_response --><!-- /lo_response -->" max="<!-- hi_response --><!-- /hi_response -->" name="<!-- input --><!-- /input -->" />
+						</td>
+						<!-- /addl_response -->
+					</tr>
 				</tbody>
 			</table>
 			<div class="submit">
