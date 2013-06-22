@@ -36,9 +36,8 @@ CREATE TABLE wp_sts_survey_questions (
 DROP TABLE IF EXISTS wp_sts_survey_responses;
 CREATE TABLE wp_sts_survey_responses (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	source_id INT UNSIGNED NOT NULL,
-	question_id INT UNSIGNED NOT NULL,
+	researcher_id INT UNSIGNED NOT NULL,
+	response TEXT NOT NULL,
 	UNIQUE KEY id (id),
-	KEY source_id (source_id),
-	KEY question_id (question_id)
+	KEY researcher_id (researcher_id)
 ) CHARACTER SET utf8 COLLATE utf8_general_ci;
