@@ -48,7 +48,7 @@ class STS_Survey_Test_Case extends WP_UnitTestCase
         	'Researcher not found. Please try again', $output
         	);
         // try a working code.
-        $code = '2a3e0c7b';
+        $code = '2a3e';
         $_POST = array( 'researcher_code' => $code );
         $output = $this->get_controller_output( $controller, 'sign_in' );
         $redir = $controller->link(
@@ -78,7 +78,7 @@ class STS_Survey_Test_Case extends WP_UnitTestCase
     	$this->assertRedirect( $sign_in_url, $output );
 
     	// good code -- show survey
-        $code = '2a3e0c7b';
+        $code = '2a3e';
         $output = $this->get_controller_output( $controller, 'survey', array( $code ) );
     	$questions = STS_Survey_Question::all();
     	$this->assertEquals( 6, count( $questions ) );

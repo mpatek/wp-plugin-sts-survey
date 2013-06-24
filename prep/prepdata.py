@@ -1,11 +1,14 @@
 import codecs
 import logging
 import hashlib
+import os
+
+DATA_DIR = "../data/"
 
 
-def prep_researchers():
-    infile = "researchers-orig.csv"
-    ofile = "researchers-final.txt"
+def prep_researchers(data_dir=DATA_DIR):
+    infile = os.path.join(data_dir, "researchers-orig.csv")
+    ofile = os.path.join(data_dir, "researchers-final.txt")
     with codecs.open(ofile, 'w', 'utf-8') as ofh:
         for line in codecs.open(infile, 'r', 'utf-8'):
             fields = line.rstrip().split(u"\t")
@@ -15,15 +18,15 @@ def prep_researchers():
                 hash_code.update(fields[0])
                 hash_code.update(fields[1])
                 hash_code.update(fields[3])
-                hash_code = hash_code.hexdigest()[:8]
+                hash_code = hash_code.hexdigest()[:4]
                 fields.append(hash_code)
                 ofh.write(u"\t".join(fields))
                 ofh.write(u"\n")
 
 
-def prep_sources():
-    infile = "sources-orig.csv"
-    ofile = "sources-final.txt"
+def prep_sources(data_dir=DATA_DIR):
+    infile = os.path.join(data_dir, "sources-orig.csv")
+    ofile = os.path.join(data_dir, "sources-final.txt")
     with codecs.open(ofile, 'w', 'utf-8') as ofh:
         for line in codecs.open(infile, 'r', 'utf-8'):
             fields = line.rstrip().split(u"\t")
