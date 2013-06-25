@@ -8,7 +8,7 @@
 			Below you will find listed 10 of your high impact articles published between 2005 and 2008. You will also find listed six features related to the nature of impact, influence and innovation, each with a definition. Please rate each of your papers below on each feature using the 0-100 scale, which is also shown below.
 		</p>
 		<p>
-			If you have questions about this survey, please contact John Ioannidis (<a href="mailto:jioannid@stanford.edu">jioannid@standord.edu</a>). 
+			If you have questions about this survey, please contact John Ioannidis (<a href="mailto:jioannid@stanford.edu">jioannid@stanford.edu</a>). 
 		</p>
 	</div>
 	<div class="definitions">

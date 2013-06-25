@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
 	});
 
 	/**
-	 * Hide addl response inputs if no addl source.
+	 * Show/hide addl source and response inputs
 	 */
 	var $addl_source = $('tr.addl-source');
 	var $show_addl_source = $('#show-addl-source');
