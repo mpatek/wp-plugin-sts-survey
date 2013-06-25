@@ -9,7 +9,7 @@ CREATE TABLE wp_sts_survey_researchers (
     UNIQUE KEY email (email),
     UNIQUE KEY code (code),
     UNIQUE KEY login_hash (login_hash)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+);
 
 DROP TABLE IF EXISTS wp_sts_survey_sources;
 CREATE TABLE wp_sts_survey_sources (
@@ -21,7 +21,7 @@ CREATE TABLE wp_sts_survey_sources (
 	UNIQUE KEY id (id),
 	KEY researcher_id (researcher_id),
 	KEY ord (ord)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+);
 
 DROP TABLE IF EXISTS wp_sts_survey_questions;
 CREATE TABLE wp_sts_survey_questions (
@@ -31,7 +31,7 @@ CREATE TABLE wp_sts_survey_questions (
 	ord INT UNSIGNED NOT NULL,
 	UNIQUE KEY id (id),
 	KEY ord (ord)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+);
 
 DROP TABLE IF EXISTS wp_sts_survey_responses;
 CREATE TABLE wp_sts_survey_responses (
@@ -40,4 +40,4 @@ CREATE TABLE wp_sts_survey_responses (
 	response TEXT NOT NULL,
 	UNIQUE KEY id (id),
 	KEY researcher_id (researcher_id)
-) CHARACTER SET utf8 COLLATE utf8_general_ci;
+);
