@@ -1,5 +1,4 @@
 body {
-	padding-top: 80px;
 	padding-bottom: 40px;
 	background-color: #f5f5f5;
 }
@@ -31,13 +30,33 @@ body {
 .scale .scale-def {
 	width: 115px;
 }
-.survey table input {
+.survey table.survey-header-table {
+	margin-bottom: 8px;
+}
+.survey table.survey-table {
+	display: block;
+	height: 400px;
+	overflow: auto;
+	border: 1px solid #555;
+}
+.survey table input.response {
 	width: 40px;
+}
+.survey table input.radio {
+	margin: 0;
 }
 .survey table .question-title {
 	font-size: 85%;
 	padding: 0;
 	width: 90px;
+	text-align: center;
+}
+.survey table .spacer {
+	width: 2px;
+}
+.survey table td.response {
+	width: 90px;
+	padding: 10px 0;
 	text-align: center;
 }
 .survey table textarea {

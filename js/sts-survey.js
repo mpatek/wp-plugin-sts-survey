@@ -52,16 +52,29 @@ jQuery(document).ready(function($) {
 	/**
 	 * Hide addl response inputs if no addl source.
 	 */
-	var $addl_source = $('textarea[name="addl-source"]');
-	var toggle_addl_responses = function() {
-		var v = $.trim($addl_source.val());
-		if (v == '') {
-			$('.addl-response').hide().val('0');
-		}
-		else {
-			$('.addl-response').show();
-		}
+	var $addl_source = $('tr.addl-source');
+	var $show_addl_source = $('#show-addl-source');
+	var $hide_addl_source = $('#hide-addl-source');
+	var show_addl_responses = function() {
+		$addl_source.show();
+		$hide_addl_source.prop('checked', false);
+		$show_addl_source.prop('checked', true);
+		var $table = $('table.survey-table');
+		$table.scrollTop($table[0].scrollHeight);
 	}
-	$addl_source.on('change', toggle_addl_responses);
-	toggle_addl_responses();
+	var hide_addl_responses = function() {
+		$addl_source.hide();
+		$hide_addl_source.prop('checked', true);
+		$show_addl_source.prop('checked', false);
+	}
+	$show_addl_source.on('click', show_addl_responses);
+	$hide_addl_source.on('click', hide_addl_responses);
+	var addl_source = $.trim($('textarea[name="addl-source"]').val());
+	if (addl_source == '') {
+		hide_addl_responses();
+	}
+	else {
+		show_addl_responses();
+	}
+
 });

@@ -88,6 +88,7 @@ class STS_Survey_Controller extends swpMVCBaseController {
                     $question_id = $matches[2];
                     $response_arr[$paper_id][$question_id] = $this->sanitize_response_value( $v );
                 }
+
                 elseif ( $k == 'addl-source' ) {
                     $v = sanitize_text_field ( $v );
                     if ( ! empty( $v ) ) {
@@ -100,7 +101,8 @@ class STS_Survey_Controller extends swpMVCBaseController {
                 }
 
             }
-            if ( ! isset( $response_arr['addl_source'] ) ) {
+            if ( $_POST['hide-addl-source'] == 'yes' || ! isset ( $response_arr['addl_source'] ) ) {
+                unset( $response_arr['addl_source'] );
                 unset( $response_arr['addl_response'] );
             }
             if ( $response_arr ) {
