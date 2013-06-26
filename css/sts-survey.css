@@ -35,7 +35,7 @@ body {
 }
 .survey table.survey-table {
 	display: block;
-	height: 400px;
+	height: 480px;
 	overflow: auto;
 	border: 1px solid #555;
 }

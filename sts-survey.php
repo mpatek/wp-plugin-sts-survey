@@ -69,12 +69,12 @@ class STS_Survey {
         $routes[] = array(
             'controller' => 'STS_Survey_Controller',
             'method' => 'sign_in',
-            'route' => '/sts-survey/sign-in',
+            'route' => '/sign-in',
         );
         $routes[]= array(
         	'controller' => 'STS_Survey_Controller',
         	'method' => 'survey',
-        	'route' => '/sts-survey/survey/:p',
+        	'route' => '/survey/:p',
     	);
         return $routes;
  	}
