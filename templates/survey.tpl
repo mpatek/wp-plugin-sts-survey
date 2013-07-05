@@ -2,7 +2,7 @@
 	<div class="intro">
 		<h4>Highly-Influential Scientist: <!-- researcher --><!-- /researcher --></h4>
 		<p>
-			The purpose of this survey is to explore different dimensions of impact among highly cited papers. We have invited only a few hundred of the most highly influential scientists in biomedical fields to participate in this work. We very much appreciate your willingness to complete this survey.
+			The purpose of this survey is to explore different dimensions of impact among highly cited papers. We have invited only the 400 most-cited scientists in biomedicine to participate in this work, since we believe that they would be the best to have insight on the different dimensions of scientific impact. As you are one of these extremely influential scientists, we would very much appreciate your willingness to complete this survey.
 		</p>
 		<p>
 			Below you will find listed 10 of your high impact articles published between 2005 and 2008. You will also find listed six features related to the nature of impact, influence and innovation, each with a definition. Please rate each of your papers below on each feature using the 0-100 scale, which is also shown below.
