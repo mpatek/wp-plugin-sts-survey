@@ -77,6 +77,10 @@
 			</table>
 			<table class="table survey-table">
 				<tbody>
+					<tr>
+						<td>&nbsp;</td>
+						<td colspan="8"><strong>You may need to scroll within this table to see all 10 papers. The submit button is below the last paper.</strong></td>
+					</tr>
 					<!-- source -->
 					<tr>
 						<td><!-- ord --><!-- /ord --></td>
