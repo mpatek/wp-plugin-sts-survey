@@ -7,7 +7,10 @@ jQuery(document).ready(function($) {
 	 * Constrain responses to integer values between lo and hi.
 	 */
 	$('input.response').on('change', function(event) {
-		var value = $(this).val();
+		value = $(this).val();
+		if ( value == '' ) {
+			return;
+		}
 		var lo_response = Number($(this).attr('min'));
 		var hi_response = Number($(this).attr('max'));
 		value = Math.floor(Number(value));

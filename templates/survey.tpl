@@ -124,6 +124,21 @@
 					</tr>
 				</tbody>
 			</table>
+			<table class="table survey-header-table">
+				<thead>
+					<!-- thead_row -->
+					<tr>
+						<th colspan="2">&nbsp;</th>
+						<!-- question_title -->
+						<th class="question-title"><!-- question --><!-- /question --></th>
+						<!-- /question_title -->
+						<th class="spacer">&nbsp;</th>
+					</tr>
+					<!-- /thead-row -->
+				</thead>
+
+			</table>
+
 		</form>
 	</div>
 </div>

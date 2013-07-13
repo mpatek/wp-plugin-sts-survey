@@ -82,11 +82,15 @@ class STS_Survey_Controller extends swpMVCBaseController {
         if ( ! empty( $_POST ) ) {
             $response_arr = array();
             foreach ( $_POST as $k => $v ) {
+                
+                $v = trim($v);
 
                 if ( preg_match ( '/^response-(\d+)-(\d+)$/', $k, $matches ) ) {
                     $paper_id = $matches[1];
                     $question_id = $matches[2];
-                    $response_arr[$paper_id][$question_id] = $this->sanitize_response_value( $v );
+                    if ( $v != '' ) {
+                        $response_arr[$paper_id][$question_id] = $this->sanitize_response_value( $v );
+                    }
                 }
 
                 elseif ( $k == 'addl-source' ) {
@@ -97,7 +101,9 @@ class STS_Survey_Controller extends swpMVCBaseController {
                 }
                 elseif ( preg_match ( '/^addl-response-(\d+)$/', $k, $matches ) ) {
                     $question_id = $matches[1];
-                    $response_arr['addl_response'][$question_id] = $this->sanitize_response_value( $v );
+                    if ( $v != '' ) {
+                        $response_arr['addl_response'][$question_id] = $this->sanitize_response_value( $v );
+                    }
                 }
 
             }
@@ -167,7 +173,7 @@ class STS_Survey_Controller extends swpMVCBaseController {
                         );
                 }
                 else {
-                    $response_tpl->replace( 'value', 0 );
+                    $response_tpl->replace( 'value', '' );
                 }
                 $response_tpl->replace( 'lo_response', $this->min_response );
                 $response_tpl->replace( 'hi_response', $this->max_response );
@@ -199,7 +205,7 @@ class STS_Survey_Controller extends swpMVCBaseController {
                     );
             }
             else {
-                $addl_response_tpl->replace( 'value', 0 );
+                $addl_response_tpl->replace( 'value', '' );
             }
             $addl_response_tpl->replace( 'lo_response', $this->min_response );
             $addl_response_tpl->replace( 'hi_response', $this->max_response );
