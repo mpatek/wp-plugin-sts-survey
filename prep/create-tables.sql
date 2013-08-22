@@ -7,7 +7,7 @@ CREATE TABLE wp_sts_survey_researchers (
 	login_hash VARCHAR(255) NOT NULL,
 	UNIQUE KEY id (id),
     UNIQUE KEY email (email),
-    UNIQUE KEY code (code),
+    KEY code (code),
     UNIQUE KEY login_hash (login_hash)
 );
 
